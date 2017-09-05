@@ -1,0 +1,45 @@
+<script src="https://cdn.rawgit.com/showdownjs/showdown/1.7.3/dist/showdown.min.js"></script>
+<script>
+function changeBrTag( html ) {
+        return html.replace(/(\r\n\|\r|\n)/gi, "\<br\/\>");
+}
+function changeYouTubeTag( html ) {
+        return html.replace(/https:\/\/youtu.be\/([\w]*)/gi, '\<p\>\<iframe wdith="420" height="315" src="https:\/\/www.youtube.com\/embed\/$1"\>\<\/iframe\>\<\/p\>');
+}
+
+function imageSetting(html)
+{
+	var html_change = html;
+	var regex = /(<([^>]+)>)/ig
+	var result = html_change.replace(regex, "");
+	
+	regex = /(https?:\/\/.*\.(?:png|jpg|jpeg))/ig;
+	var arrMatch = result.match(regex);
+	console.log(arrMatch);
+	for(var i=0;i<arrMatch.length;i++)
+	{
+		re = new RegExp(arrMatch[i], "g");
+		html_change = html_change.replace(re,"<img src='"+arrMatch[i]+"'/>");	
+		if(i!=arrMatch.lenght-1)
+		{
+			for(var j=i+1;j<arrMatch.length;j++)
+			{
+				if(arrMatch[j]==arrMatch[i])
+				{
+        			arrMatch.splice(j,1);
+    			}
+    		}
+		}
+	}
+	return html_change;
+}
+</script>
+<script>
+//....omitted
+var converter = new showdown.Converter();
+    text = result.body,
+    html_body = converter.makeHtml(text);
+    html_body = changeYouTubeTag(changeBrTag(imageSetting(html_body)));
+   	$('#main').html(html_body);
+//....omitted
+</script>
