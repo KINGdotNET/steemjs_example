@@ -15,6 +15,7 @@ var last_permlink = '';
 function showPage(author,limit)
 {
 	var today = new Date();
+	today.setMinutes(today.getMinutes()-today.getTimezoneOffset());		//GMT +9:00 한국
 	var today_str = today.format('yyyy-mm-dd') + 'T' + today.format('HH:MM:ss');
 	console.log("start_last_permlink",window.last_permlink);
 	steem.api.getDiscussionsByAuthorBeforeDate(author,window.last_permlink,today_str,limit, function(err, result) {
