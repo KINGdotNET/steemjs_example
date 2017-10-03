@@ -15,20 +15,23 @@ function imageSetting(html)
 	
 	regex = /(https?:\/\/.*\.(?:png|jpg|jpeg))/ig;
 	var arrMatch = result.match(regex);
-	console.log(arrMatch);
-	for(var i=0;i<arrMatch.length;i++)
+	if(arrMatch != null)
 	{
-		re = new RegExp(arrMatch[i], "g");
-		html_change = html_change.replace(re,"<img src='"+arrMatch[i]+"'/>");	
-		if(i!=arrMatch.lenght-1)
+		console.log(arrMatch);
+		for(var i=0;i<arrMatch.length;i++)
 		{
-			for(var j=i+1;j<arrMatch.length;j++)
+			re = new RegExp(arrMatch[i], "g");
+			html_change = html_change.replace(re,"<img src='"+arrMatch[i]+"'/>");	
+			if(i!=arrMatch.lenght-1)
 			{
-				if(arrMatch[j]==arrMatch[i])
+				for(var j=i+1;j<arrMatch.length;j++)
 				{
-        			arrMatch.splice(j,1);
-    			}
-    		}
+					if(arrMatch[j]==arrMatch[i])
+					{
+					arrMatch.splice(j,1);
+				}
+			}
+			}
 		}
 	}
 	return html_change;
