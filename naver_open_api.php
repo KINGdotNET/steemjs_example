@@ -108,3 +108,38 @@ $res = json_decode($response);
 echo $res->response->email;
 
 ?>
+
+<?php
+/***** 블로그에 글 쓰기 ******/
+
+$title = urlencode($export_article['title']);
+$contents = urlencode($export_article['body']);
+$access_token = $_COOKIE['access_token'];
+
+$header = "Bearer ".$access_token;
+$postvars = "title=".$title."&contents=".$contents;
+$url = "https://openapi.naver.com/blog/writePost.json";
+$is_post = true;
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, $url);
+curl_setopt($ch, CURLOPT_POST, $is_post);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch,CURLOPT_POSTFIELDS, $postvars);
+$headers[] = "Authorization: ".$header;
+curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+$response = curl_exec ($ch);
+$status_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+echo "<p>status_code:".$status_code."</p>";
+curl_close ($ch);
+if($status_code == 200) 
+{
+    $res = json_decode($response);
+} 
+else 
+{
+	echo "Error 내용:".$response."<br/>";
+}
+
+?>
+
+
