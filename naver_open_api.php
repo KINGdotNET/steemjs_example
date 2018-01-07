@@ -113,7 +113,7 @@ echo $res->response->email;
 /***** 블로그에 글 쓰기 ******/
 
 $title = urlencode($export_article['title']);
-$contents = urlencode($export_article['body']);
+$contents = urlencode(preg_replace("/\<br\/\>/", "<p> </p>", $export_article['body']));
 $access_token = $_COOKIE['access_token'];
 
 $header = "Bearer ".$access_token;
