@@ -20,6 +20,14 @@ img
 {
 	max-width: 800px;
 }
+#source {
+    width: 100%;
+    height: 200px;
+    border: 1px solid #ccc;
+    padding: 5px;
+    resize: both;
+    overflow: auto;
+}
 </style>
 </head>
 <body>
@@ -32,6 +40,7 @@ Permlink : <input type="text" name="permlink">
 <input type="submit" value="Submit">
 </form>
 <div id="head">Example <?=$id?>/<?=$permlink?></div>
+<textarea id="source"></textarea>
 <div id="contents"></div>
 <?php
 	
@@ -89,6 +98,7 @@ Permlink : <input type="text" name="permlink">
     			html_body = converter.makeHtml(text);
     			html_body = changeYouTubeTag(imageSetting(html_body));
    				$('#contents').html(html_body);
+   				$('#source').html(html_body);
 			});
 		});
 		</script>
@@ -99,3 +109,4 @@ Permlink : <input type="text" name="permlink">
 </div>
 </body>
 </html>
+
